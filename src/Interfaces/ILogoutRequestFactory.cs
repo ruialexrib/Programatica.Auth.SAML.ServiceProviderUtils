@@ -8,6 +8,6 @@ namespace Programatica.Auth.SAML.ServiceProviderUtils.Interfaces
 {
     public interface ILogoutRequestFactory
     {
-        string GetRedirectUrl(string samlEndpoint);
+        string GetRedirectUrl(string samlEndpoint, bool sign);
     }
 }

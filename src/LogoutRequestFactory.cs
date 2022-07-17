@@ -6,7 +6,7 @@ using System.Xml;
 
 namespace Programatica.Auth.SAML.ServiceProviderUtils
 {
-    public class LogoutRequestFactory /*ILogoutRequestFactory*/
+    public class LogoutRequestFactory : ILogoutRequestFactory 
     {
         private readonly string _issuer;
         private readonly string _id;
