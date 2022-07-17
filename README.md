@@ -35,7 +35,8 @@ public IActionResult Login()
     return Redirect(redirectUrl);
 }
 ```
-### Step 2 - Create an endpoint to handle the assertion... this endpoint is the Aseertion Consumer Service... the url where the IDP will delivery (post) the authenticated user attributes 
+### Step 2 - Create an endpoint to handle the assertion... 
+This endpoint is the Aseertion Consumer Service... the url where the IDP will delivery (post) the authenticated user attributes 
 ```
 [HttpPost]
 public async Task<ActionResult> Acs()
