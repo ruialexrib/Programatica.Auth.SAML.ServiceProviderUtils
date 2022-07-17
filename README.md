@@ -37,7 +37,7 @@ public IActionResult Login()
 ```
 
 ### Step 2 - Create an endpoint to handle the assertion... 
-This endpoint is the Aseertion Consumer Service... the url where the IDP will delivery (post) the authenticated user attributes 
+This endpoint is the Assertion Consumer Service... the url where the IDP will delivery (post) the authenticated user attributes 
 ```
 [HttpPost]
 public async Task<ActionResult> Acs()
@@ -84,5 +84,50 @@ public IActionResult Logout()
                                                           sign: true);
 
     return Redirect(redirectUrl);
+}
+```
+
+### Step 4 - Create an endpoint to handle the the LogoutResponse/LogoutRequest
+```
+public IActionResult Slo()
+{
+    // valida se temos uma SAMLResponse ou SAMLRequest
+    if (HttpContext.Request.Query["SAMLResponse"].ToString() == null && HttpContext.Request.Query["SAMLRequest"].ToString() == null)
+    {
+        throw new Exception("SAMLRequest or SAMLResponse not found.");
+    }
+    else
+    {
+        // trata-se da resposta ao pedido de SLO iniciado pelo SP
+        if (HttpContext.Request.Query["SAMLResponse"].ToString() != null)
+        {
+            // trata-se da resposta ao pedido de SLO iniciado pelo SP
+            // tratar SAMLResponse
+            var SAMLResponse = EncodeUtils.DecodeAndInflate(HttpContext.Request.Query["SAMLResponse"].ToString());
+            return RedirectToAction("Index");
+        }
+        else
+        {
+            // trata-se de um pedido inicido pelo IDP para SLO   
+            var sAMLRequest = EncodeUtils.DecodeAndInflate(HttpContext.Request.Query["SAMLRequest"].ToString());
+            var relaystate = HttpContext.Request.Query["RelayState"].ToString();
+
+            // TODO: validar samlrequest
+            // para efeitos de demo, o SP vai apenas terminar a sessão
+
+            // logout
+            HttpContext.SignOutAsync();
+
+            // build response
+            var request = new LogoutResponseFactory(
+                                requestDestination: "http://localhost:8080/simplesaml/saml2/idp/SingleLogoutService.php",
+                                issuer: "https://localhost:44396/",
+                                relaystate);
+
+            var redirectUrl = request.GetRedirectUrl(samlEndpoint: "http://localhost:8080/simplesaml/saml2/idp/SingleLogoutService.php");
+
+            return Redirect(redirectUrl);
+        }
+    }
 }
 ```
