@@ -1,6 +1,6 @@
 # Programatica.Auth.SAML.ServiceProviderUtils
 
-The main purpose of this project is to provide a set of utilities to implement SAML authentication in .net core projects.
+The main purpose of this project is provide a set of utilities to implement SAML authentication in .net core projects.
 
 ## Factories
 - AuthnRequestFactory.cs - builds a SAMLRequest (AuthnRequest) and create an encoded url to start the Single Sign On (SSO) process
@@ -12,3 +12,9 @@ The main purpose of this project is to provide a set of utilities to implement S
 - CertificateUtils.cs - utility with functions to load X509Certificates 
 - EncodeUtils.cs - utility with functions to handle the DecodeAndInflate and DeflateAndEncode
 - XPathsUtils.cs - utility to help parse the assertion xml 
+
+### How to use (Service Provider in asp.net core 6)
+To this demonstration we will create an asp.net mvc projet targeting .net core 6
+
+#### Home Controller
+
