@@ -35,6 +35,7 @@ public IActionResult Login()
     return Redirect(redirectUrl);
 }
 ```
+
 ### Step 2 - Create an endpoint to handle the assertion... 
 This endpoint is the Aseertion Consumer Service... the url where the IDP will delivery (post) the authenticated user attributes 
 ```
@@ -66,5 +67,22 @@ public async Task<ActionResult> Acs()
     {
         throw new Exception("XML signature not valid.");
     }
+}
+```
+
+### Step 3 - Create the LogoutRequest and redirect to url
+```
+public IActionResult Logout()
+{
+    HttpContext.SignOutAsync();
+
+    var logoutRequestFactory = new LogoutRequestFactory(requestDestination: "http://localhost:8080/simplesaml/saml2/idp/SingleLogoutService.php",
+                                                        issuer: "https://localhost:44396/",
+                                                        cert: CertificateUtils.LoadCertificateFile("idp_sp.pfx"));
+
+    var redirectUrl = logoutRequestFactory.GetRedirectUrl(samlEndpoint: "http://localhost:8080/simplesaml/saml2/idp/SingleLogoutService.php",
+                                                          sign: true);
+
+    return Redirect(redirectUrl);
 }
 ```
