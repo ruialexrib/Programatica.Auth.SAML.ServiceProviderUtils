@@ -14,7 +14,25 @@ The main purpose of this project is provide a set of utilities to implement SAML
 - XPathsUtils.cs - utility to help parse the assertion xml 
 
 ### How to use (Service Provider in asp.net core 6)
-To this demonstration we will create an asp.net mvc projet targeting .net core 6
+To this demonstration we will create an asp.net mvc projet targeting .net core 6. 
+
+Start adding a reference to this project (Programatica.Auth.SAML.ServiceProviderUtils)
 
 #### Home Controller
 
+```
+        public IActionResult Login()
+        {
+            var authnRequestFactory = new AuthnRequestFactory(issuer: "https://localhost:44396/",
+                                                              assertionConsumerServiceUrl: "https://localhost:44396/home/acs",
+                                                              requestDestination: "http://localhost:8080/simplesaml/saml2/idp/SSOService.php",
+                                                              forceAuthn: true,
+                                                              cert: CertificateUtils.LoadCertificateFile("idp_sp.pfx"));
+
+            var redirectUrl = authnRequestFactory.GetRedirectUrl(samlEndpoint: "http://localhost:8080/simplesaml/saml2/idp/SSOService.php",
+                                                                 relayState: "https://localhost:44396/home/relay",
+                                                                 sign: true);
+
+            return Redirect(redirectUrl);
+        }
+```
