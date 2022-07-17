@@ -11,8 +11,6 @@ namespace Programatica.Auth.SAML.ServiceProviderUtils
         private readonly string _issuer;
         private readonly string _id;
         private readonly string _requestDestination;
-        private readonly string _nameId;
-        private readonly string _sessionIndex;
         private readonly X509Certificate2? _cert;
 
         /// <summary>
@@ -20,14 +18,12 @@ namespace Programatica.Auth.SAML.ServiceProviderUtils
         /// </summary>
         /// <param name="requestDestination"></param>
         /// <param name="issuer"></param>
-        public LogoutRequestFactory(string requestDestination, string issuer, string nameId, string sessionIndex, X509Certificate2? cert = null)
+        public LogoutRequestFactory(string requestDestination, string issuer, X509Certificate2? cert = null)
         {
             _requestDestination = requestDestination;
             _issuer = issuer;
             _id = $"_{Guid.NewGuid()}";
             _cert = cert;
-            _nameId = nameId;
-            _sessionIndex = sessionIndex;
         }
 
         /// <summary>
@@ -107,11 +103,11 @@ namespace Programatica.Auth.SAML.ServiceProviderUtils
                     xmlWriter.WriteStartElement("saml", "NameID", "urn:oasis:names:tc:SAML:2.0:assertion");
                     xmlWriter.WriteAttributeString("SPNameQualifier", _issuer);
                     xmlWriter.WriteAttributeString("Format", "urn:oasis:names:tc:SAML:2.0:nameid-format:transient");
-                    xmlWriter.WriteString($"{_nameId}");
+                    xmlWriter.WriteString($"{Guid.NewGuid()}");
                     xmlWriter.WriteEndElement();
 
                     xmlWriter.WriteStartElement("samlp", "SessionIndex", "urn:oasis:names:tc:SAML:2.0:protocol");
-                    xmlWriter.WriteString($"{_sessionIndex}");
+                    xmlWriter.WriteString($"{Guid.NewGuid()}");
                     xmlWriter.WriteEndElement();
 
                     // close first element

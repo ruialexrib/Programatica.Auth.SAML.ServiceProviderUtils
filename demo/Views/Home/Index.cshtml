@@ -1,0 +1,37 @@
+﻿@{
+    var username = string.Empty;
+
+    if (User.Identity.IsAuthenticated)
+    {
+        username = User.Claims.FirstOrDefault(x => x.Type.Equals("Username"))?.Value;
+    }
+}
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <h4>You are authenticated as @username</h4>
+        <a class="btn btn-primary" asp-action="Logout">Logout</a>
+    }
+    else
+    {
+        <h4>You are not authenticated </h4>
+        <a class="btn btn-primary" asp-action="Login">Login</a>
+    }
+</div>
+
+
+@section Scripts {
+
+    <script>
+
+        $(document).ready(function() {
+        });
+
+    </script>
+
+}

@@ -1,0 +1,10 @@
+﻿version: "3"
+services:
+  idp:
+    image: kenchan0130/simplesamlphp
+    container_name: idp
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./saml20-sp-remote.php:/var/www/simplesamlphp/metadata/saml20-sp-remote.php
+      - ./authsources.php:/var/www/simplesamlphp/config/authsources.php
