@@ -58,7 +58,7 @@ namespace Programatica.Auth.Saml.SpDemo.Controllers
             return Redirect(redirectUrl);
         }
 
-                
+
         public IActionResult Slo()
         {
             // valida se temos uma SAMLResponse ou SAMLRequest
