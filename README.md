@@ -13,13 +13,13 @@ The main purpose of this project is provide a set of utilities to implement SAML
 - EncodeUtils.cs - utility with functions to handle the DecodeAndInflate and DeflateAndEncode
 - XPathsUtils.cs - utility to help parse the assertion xml 
 
-### How to use (Service Provider in asp.net core 6)
+## How to use (Service Provider in asp.net core 6)
 To this demonstration we will create an asp.net mvc projet targeting .net core 6. 
 
 Start adding a reference to this project (Programatica.Auth.SAML.ServiceProviderUtils)
 
-#### Home Controller
-##### Step 1 - Create the AuthRequest and redirect to url
+### Home Controller
+#### Step 1 - Create the AuthRequest and redirect to url
 ```
 public IActionResult Login()
 {
@@ -36,7 +36,7 @@ public IActionResult Login()
     return Redirect(redirectUrl);
 }
 ```
-Step 2 - Create an endpoint to handle the assertion... this endpoint is the Aseertion Consumer Service... the url where the IDP will delivery (post) the authenticated user attributes 
+#### Step 2 - Create an endpoint to handle the assertion... this endpoint is the Aseertion Consumer Service... the url where the IDP will delivery (post) the authenticated user attributes 
 ```
 [HttpPost]
 public async Task<ActionResult> Acs()
