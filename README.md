@@ -14,7 +14,7 @@ The main purpose of this project is provide a set of utilities to implement SAML
 
 | File |  Description |
 | ------------------- | ------------------- |
-|  AssertionParserUtils.cs |  utility with functions to handle teh assertion (decryption, signature validation, get attributes by name) |
+|  AssertionParserUtils.cs |  utility with functions to handle the assertion (decryption, signature validation, get attributes by name) |
 |  CertificateUtils.cs |  utility with functions to load X509Certificates  |
 |  EncodeUtils.cs |  utility with functions to handle the DecodeAndInflate and DeflateAndEncode |
 |  XPathsUtils.cs |  utility to help parse the assertion xml  |
