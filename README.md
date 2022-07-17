@@ -21,18 +21,18 @@ Start adding a reference to this project (Programatica.Auth.SAML.ServiceProvider
 #### Home Controller
 
 ```
-        public IActionResult Login()
-        {
-            var authnRequestFactory = new AuthnRequestFactory(issuer: "https://localhost:44396/",
-                                                              assertionConsumerServiceUrl: "https://localhost:44396/home/acs",
-                                                              requestDestination: "http://localhost:8080/simplesaml/saml2/idp/SSOService.php",
-                                                              forceAuthn: true,
-                                                              cert: CertificateUtils.LoadCertificateFile("idp_sp.pfx"));
+public IActionResult Login()
+{
+    var authnRequestFactory = new AuthnRequestFactory(issuer: "https://localhost:44396/",
+                                                      assertionConsumerServiceUrl: "https://localhost:44396/home/acs",
+                                                      requestDestination: "http://localhost:8080/simplesaml/saml2/idp/SSOService.php",
+                                                      forceAuthn: true,
+                                                      cert: CertificateUtils.LoadCertificateFile("idp_sp.pfx"));
 
-            var redirectUrl = authnRequestFactory.GetRedirectUrl(samlEndpoint: "http://localhost:8080/simplesaml/saml2/idp/SSOService.php",
-                                                                 relayState: "https://localhost:44396/home/relay",
-                                                                 sign: true);
+    var redirectUrl = authnRequestFactory.GetRedirectUrl(samlEndpoint: "http://localhost:8080/simplesaml/saml2/idp/SSOService.php",
+                                                         relayState: "https://localhost:44396/home/relay",
+                                                         sign: true);
 
-            return Redirect(redirectUrl);
-        }
+    return Redirect(redirectUrl);
+}
 ```
