@@ -19,7 +19,7 @@ To this demonstration we will create an asp.net mvc projet targeting .net core 6
 Start adding a reference to this project (Programatica.Auth.SAML.ServiceProviderUtils)
 
 #### Home Controller
-Create the AuthRequest and redirect to url
+##### Step 1 - Create the AuthRequest and redirect to url
 ```
 public IActionResult Login()
 {
@@ -34,5 +34,37 @@ public IActionResult Login()
                                                          sign: true);
 
     return Redirect(redirectUrl);
+}
+```
+Step 2 - Create an endpoint to handle the assertion... this endpoint is the Aseertion Consumer Service... the url where the IDP will delivery (post) the authenticated user attributes 
+```
+[HttpPost]
+public async Task<ActionResult> Acs()
+{
+    var assertionParser = new AssertionParserUtils();
+    var sAMLResponse = Request.Form["SAMLResponse"];
+    var relayState = Request.Form["RelayState"];
+    assertionParser.LoadXmlFromBase64(sAMLResponse);
+
+    // verifica assinatura
+    bool isValid = assertionParser.IsValid();
+
+    if (isValid)
+    {
+        // desencripta
+        var cert = CertificateUtils.LoadCertificateFile("idp_sp.pfx");
+        assertionParser.DecryptIfNeeded(cert);
+
+        var user = assertionParser.GetAttributeByName("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name", 0);
+        var sessionindex = assertionParser.GetResponseSessionIndex();
+        var nameid = assertionParser.GetResponseNameId();
+        await Auth(username: user);
+
+        return RedirectToAction("Index");
+    }
+    else
+    {
+        throw new Exception("XML signature not valid.");
+    }
 }
 ```
