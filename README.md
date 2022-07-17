@@ -7,14 +7,17 @@ The main purpose of this project is provide a set of utilities to implement SAML
 | File |  Description |
 | ------------------- | ------------------- |
 |  AuthnRequestFactory.cs |  builds a SAMLRequest (AuthnRequest) and create an encoded url to start the Single Sign On (SSO) process |
-|  LogoutRequestFactory |  builds a SAMLRequest (LogoutRequest) and create an encoded url to start the Single Log Out (SLO) process |
+|  LogoutRequestFactory.cs |  builds a SAMLRequest (LogoutRequest) and create an encoded url to start the Single Log Out (SLO) process |
 |  LogoutResponseFactory.cs |  builds a LogoutResponse (LogoutRequest) and create an encoded url to end the Single Log Out (SLO) process |
 
 ## Utilities
-- AssertionParserUtils.cs - utility with functions to handle teh assertion (decryption, signature validation, get attributes by name)
-- CertificateUtils.cs - utility with functions to load X509Certificates 
-- EncodeUtils.cs - utility with functions to handle the DecodeAndInflate and DeflateAndEncode
-- XPathsUtils.cs - utility to help parse the assertion xml 
+
+| File |  Description |
+| ------------------- | ------------------- |
+|  AssertionParserUtils.cs |  utility with functions to handle teh assertion (decryption, signature validation, get attributes by name) |
+|  CertificateUtils.cs |  utility with functions to load X509Certificates  |
+|  EncodeUtils.cs |  utility with functions to handle the DecodeAndInflate and DeflateAndEncode |
+|  XPathsUtils.cs |  utility to help parse the assertion xml  |
 
 ## How to use (Service Provider in asp.net core 6)
 To this demonstration we will create an asp.net mvc projet targeting .net core 6. 
