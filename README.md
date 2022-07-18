@@ -1,3 +1,5 @@
+[![.NET](https://github.com/ruialexrib/Programatica.Auth.SAML.ServiceProviderUtils/actions/workflows/dotnet.yml/badge.svg)](https://github.com/ruialexrib/Programatica.Auth.SAML.ServiceProviderUtils/actions/workflows/dotnet.yml)
+
 # Programatica.Auth.SAML.ServiceProviderUtils
 
 The main purpose of this project is provide a set of utilities to implement SAML authentication in .net core projects.
