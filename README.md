@@ -26,7 +26,7 @@ To this demonstration we will create an asp.net mvc projet targeting .net core 6
 Start adding a reference to this project (Programatica.Auth.SAML.ServiceProviderUtils)
 
 ### Step 1 - Create the AuthRequest and redirect to url
-```
+```csharp
 public IActionResult Login()
 {
     var authnRequestFactory = new AuthnRequestFactory(issuer: "https://localhost:44396/",
