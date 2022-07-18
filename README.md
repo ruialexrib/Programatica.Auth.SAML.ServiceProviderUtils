@@ -45,7 +45,7 @@ public IActionResult Login()
 
 ### Step 2 - Create an endpoint to handle the assertion... 
 This endpoint is the Assertion Consumer Service... the url where the IDP will delivery (post) the authenticated user attributes 
-```
+```csharp
 [HttpPost]
 public async Task<ActionResult> Acs()
 {
@@ -78,7 +78,7 @@ public async Task<ActionResult> Acs()
 ```
 
 ### Step 3 - Create the LogoutRequest and redirect to url
-```
+```csharp
 public IActionResult Logout()
 {
     HttpContext.SignOutAsync();
@@ -95,7 +95,7 @@ public IActionResult Logout()
 ```
 
 ### Step 4 - Create an endpoint to handle the the LogoutResponse/LogoutRequest
-```
+```csharp
 public IActionResult Slo()
 {
     // valida se temos uma SAMLResponse ou SAMLRequest
